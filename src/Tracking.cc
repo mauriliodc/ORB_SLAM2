@@ -155,7 +155,7 @@ void Tracking::SetLocalMapper(LocalMapping *pLocalMapper)
 
 void Tracking::SetLoopClosing(LoopClosing *pLoopClosing)
 {
-    mpLoopClosing=pLoopClosing;
+    //mpLoopClosing=pLoopClosing;
 }
 
 void Tracking::SetViewer(Viewer *pViewer)
@@ -1528,9 +1528,9 @@ void Tracking::Reset()
     cout << " done" << endl;
 
     // Reset Loop Closing
-    cout << "Reseting Loop Closing...";
-    mpLoopClosing->RequestReset();
-    cout << " done" << endl;
+    //cout << "Reseting Loop Closing...";
+    //mpLoopClosing->RequestReset();
+    //cout << " done" << endl;
 
     // Clear BoW Database
     cout << "Reseting Database...";

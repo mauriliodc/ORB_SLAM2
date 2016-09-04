@@ -1,0 +1,1 @@
+rosrun ORB_SLAM2 new_world_so3_node _vocabulary:=ORBvoc.txt _settings:=XTION.yaml _rgb:=/camera_right/rgb/image_raw _depth:=/camera_right/depth/image_raw _joints:=/joint_state _tf:=camera_right _origin:=right
