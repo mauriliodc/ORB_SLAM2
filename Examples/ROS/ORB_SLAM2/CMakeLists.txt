@@ -1,14 +1,3 @@
-#__/\\\\\\\\\\\__/\\\\\\_____________________/\\\\\\\\\__________________________________________________________        
-# _\/////\\\///__\////\\\__________________/\\\////////___________________________________________________________       
-#  _____\/\\\________\/\\\________________/\\\/____________________________________________________________________      
-#   _____\/\\\________\/\\\_______________/\\\______________/\\\\\\\\\_____/\\\\\\\\\\\__/\\\\\\\\\\\_____/\\\\\____     
-#    _____\/\\\________\/\\\______________\/\\\_____________\////////\\\___\///////\\\/__\///////\\\/____/\\\///\\\__    
-#     _____\/\\\________\/\\\______________\//\\\______________/\\\\\\\\\\_______/\\\/_________/\\\/_____/\\\__\//\\\_   
-#      _____\/\\\________\/\\\_______________\///\\\___________/\\\/////\\\_____/\\\/_________/\\\/______\//\\\__/\\\__  
-#       __/\\\\\\\\\\\__/\\\\\\\\\______________\////\\\\\\\\\_\//\\\\\\\\/\\__/\\\\\\\\\\\__/\\\\\\\\\\\__\///\\\\\/___ 
-#        _\///////////__\/////////__________________\/////////___\////////\//__\///////////__\///////////_____\/////_____
-
-
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
@@ -57,6 +46,7 @@ ${PROJECT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/../../../
 ${PROJECT_SOURCE_DIR}/../../../include
 ${Pangolin_INCLUDE_DIRS}
+$ENV{ROS_WS}/src/thin_state_publisher/src #dirty af
 )
 
 set(LIBS 
@@ -68,28 +58,6 @@ ${PROJECT_SOURCE_DIR}/../../../Thirdparty/g2o/lib/libg2o.so
 ${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
 )
 
-# Node for monocular camera
-#rosbuild_add_executable(Mono
-#src/ros_mono.cc
-#)
-#
-#target_link_libraries(Mono
-#${LIBS}
-#)
-# Node for stereo camera
-#rosbuild_add_executable(Stereo
-#src/ros_stereo.cc
-#)
-#target_link_libraries(Stereo
-#${LIBS}
-#)
-# Node for RGB-D camera
-#rosbuild_add_executable(RGBD
-#src/ros_rgbd.cc
-#)
-#target_link_libraries(RGBD
-#${LIBS}
-#)
 # ██████╗ ██╗   ██╗ █████╗ ██████╗ ██████╗  █████╗      ██████╗ ██╗   ██╗ █████╗     
 #██╔════╝ ██║   ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗    ██╔═══██╗██║   ██║██╔══██╗    
 #██║  ███╗██║   ██║███████║██████╔╝██║  ██║███████║    ██║   ██║██║   ██║███████║    
@@ -99,17 +67,22 @@ ${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
                                                                                     
 
 # Node XTION+JOINT STATE
-rosbuild_add_executable(XTION
-src/ros_rgbd.cc
+rosbuild_add_executable(xtion_io
+src/ros_xtion.cpp
 )
 
-target_link_libraries(XTION
+target_link_libraries(xtion_io
 ${catkin_LIBRARIES}
 ${LIBS}
 )
-add_dependencies(XTION ${catkin_EXPORTED_TARGETS})
+add_dependencies(xtion_io ${catkin_EXPORTED_TARGETS})
 
-
+#SINGLE 3D Sensor
+rosbuild_add_executable(new_world_so3_node_no_joint src/new_world_so3_no_joint.cpp)
+target_link_libraries(new_world_so3_node_no_joint
+${LIBS} ${catkin_LIBRARIES}
+)
+add_dependencies(new_world_so3_node_no_joint ${catkin_EXPORTED_TARGETS})
 
 #SINGLE 3D Sensor
 rosbuild_add_executable(new_world_so3_node src/new_world_so3_node.cpp)
