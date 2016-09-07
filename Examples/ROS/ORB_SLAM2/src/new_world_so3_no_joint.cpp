@@ -73,6 +73,16 @@ int main(int argc, char **argv)
     n.param<std::string>("origin",tf_origin, "camera_link");
     n.param<std::string>("depth",depthTopic, "/camera/depth/image_raw");
     n.param<std::string>("joints",jointTopic, "/joint_state");
+
+    std::cout << "_vocabulary:= "<<vocabulary<<std::endl;
+    std::cout << "_settings:= "<<orb_settings<<std::endl;
+    std::cout << "_rgb:= "<<rgbTopic<<std::endl;
+    std::cout << "_tf:= "<<tf_name<<std::endl;
+    std::cout << "_origin:= "<<tf_origin<<std::endl;
+    std::cout << "_depth:= "<<depthTopic<<std::endl;
+    std::cout << "_joints:= "<<jointTopic<<std::endl;
+
+
     //ORB INIT
     SLAM = new ORB_SLAM2::System(vocabulary,orb_settings,ORB_SLAM2::System::RGBD,false);
     ROS_INFO("mangez merde");
